@@ -1,0 +1,75 @@
+name: Generate and Sync to thread-phone
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+    types: [closed]
+  workflow_dispatch:
+
+jobs:
+  generate-and-sync:
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || (github.event_name == 'pull_request' && github.event.pull_request.merged == true)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source repository
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: "1.21"
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install Task
+        run: |
+          sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin
+
+      - name: Setup tools and generate
+        run: |
+          task setup-tools
+          task generate
+
+      - name: Checkout target repository
+        uses: actions/checkout@v4
+        with:
+          repository: tosaken1116/thread-phone
+          token: ${{ secrets.PAT_TOKEN }}
+          path: thread-phone
+
+      - name: Copy generated files
+        run: |
+          # Remove existing generated files
+          rm -rf thread-phone/src/generated/*
+
+          # Copy new generated TypeScript files
+          mkdir -p thread-phone/src/generated
+          cp -r gen/ts/string_phone/* thread-phone/src/generated/
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          path: thread-phone
+          token: ${{ secrets.PAT_TOKEN }}
+          commit-message: "feat: update generated protobuf files from string-phone-proto"
+          title: "Update generated protobuf files"
+          body: |
+            ## 概要
+            string-phone-protoリポジトリで生成されたProtocol Buffersファイルを自動同期しました。
+
+            ## 変更内容
+            - `src/generated/` 配下のTypeScriptファイルを更新
+
+            ## 関連コミット
+            - Source commit: ${{ github.sha }}
+            - Repository: ${{ github.repository }}
+
+            🤖 この PR は自動生成されました
+          branch: update-protobuf-${{ github.run_number }}
+          delete-branch: true
