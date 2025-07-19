@@ -50,7 +50,14 @@ jobs:
 
           # Copy new generated TypeScript files
           mkdir -p thread-phone/src/generated
-          cp -r gen/ts/string_phone/* thread-phone/src/generated/
+          if [ -d "gen/ts/string_phone" ]; then
+            cp -r gen/ts/string_phone/* thread-phone/src/generated/
+          else
+            echo "Generated files not found in gen/ts/string_phone"
+            ls -la gen/ || echo "gen directory not found"
+            find . -name "*.ts" -type f | head -10
+            exit 1
+          fi
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
