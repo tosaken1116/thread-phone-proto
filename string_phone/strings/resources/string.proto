@@ -19,9 +19,8 @@ enum StringType {
 message TemplateString {
   string id = 1;
   string name = 2;
-  int32 length = 3;
-  int32 default_durability = 4;
-  StringType type = 5;
+  int32 default_durability = 3;
+  StringType type = 4;
 }
 
 message String {
