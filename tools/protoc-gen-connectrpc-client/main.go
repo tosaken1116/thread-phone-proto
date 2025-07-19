@@ -44,9 +44,8 @@ func generateFile(gen *protogen.Plugin, file *protogen.File) error {
 		
 		g := gen.NewGeneratedFile(filename, file.GoImportPath)
 
-		packagePath := getPackagePath(file)
 
-		g.P("import { ", serviceName, " } from \"@/generated/", packagePath, "\";")
+		g.P("import { ", serviceName, " } from \"@/generated/", serviceName,serviceName,"_pb", "\";")
 		g.P("import { createClient } from \"@connectrpc/connect\";")
 		g.P("import { createConnectTransport } from \"@connectrpc/connect-web\";")
 		g.P("")
