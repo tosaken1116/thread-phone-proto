@@ -6,25 +6,13 @@ import "string_phone/user/resources/user.proto";
 
 option go_package = "github.com/string-phone/proto/string_phone/user/rpc";
 
-message GetPhoneNumberRequest {}
-
-message GetPhoneNumberResponse {
-  string phone_number = 1;
+message SignUpRequest {
+  string name = 1;
+  string email = 2;
+  string password = 3;
+  string number = 4;
 }
 
-message RegisterPhoneRequest {
-  string phone_number = 1;
-}
-
-message RegisterPhoneResponse {
-  bool success = 1;
-  string message = 2;
-}
-
-message GetUserRequest {
-  string id = 1;
-}
-
-message GetUserResponse {
+message SignUpResponse {
   string_phone.user.resources.User user = 1;
 }

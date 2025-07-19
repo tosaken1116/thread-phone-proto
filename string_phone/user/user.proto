@@ -8,12 +8,6 @@ import "string_phone/user/rpc/user.proto";
 option go_package = "github.com/string-phone/proto/string_phone/user";
 
 service UserService {
-  rpc GetPhoneNumber(string_phone.user.rpc.GetPhoneNumberRequest)
-      returns (string_phone.user.rpc.GetPhoneNumberResponse);
-  
-  rpc RegisterPhone(string_phone.user.rpc.RegisterPhoneRequest)
-      returns (string_phone.user.rpc.RegisterPhoneResponse);
-  
-  rpc GetUser(string_phone.user.rpc.GetUserRequest)
-      returns (string_phone.user.rpc.GetUserResponse);
+  rpc SignUp(string_phone.user.rpc.SignUpRequest)
+      returns (string_phone.user.rpc.SignUpResponse);
 }
