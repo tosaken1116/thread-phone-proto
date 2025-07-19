@@ -34,15 +34,14 @@ jobs:
       - name: Setup tools and generate
         run: |
           task setup-tools
-          # Change to the proto directory before generation
-          cd string_phone
-          buf generate
-          cd ..
+          task generate
           # Verify generation worked
           echo "=== Generated files structure ==="
           find . -name "*.ts" -path "*/gen/*" | head -10 || echo "No TypeScript files in gen/"
           ls -la gen/ 2>/dev/null || echo "gen/ directory not found"
-          # Check if files were generated in different location
+          # Check actual directory structure  
+          echo "=== Full directory tree ==="
+          find . -type d -name "*gen*" -exec ls -la {} \; || echo "No gen directories"
           find . -name "*.ts" -path "*string_phone*" | head -5
 
       - name: Checkout target repository
