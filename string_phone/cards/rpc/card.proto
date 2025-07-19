@@ -28,5 +28,4 @@ message BuyCardRequest {
 message BuyCardResponse {
   bool success = 1;
   string message = 2;
-  string_phone.cards.resources.Card card = 3;
 }
