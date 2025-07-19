@@ -1,0 +1,12 @@
+version: v1
+name: buf.build/your-org/string-phone
+deps:
+  - buf.build/googleapis/googleapis
+lint:
+  use:
+    - DEFAULT
+  except:
+    - UNARY_RPC
+breaking:
+  use:
+    - FILE

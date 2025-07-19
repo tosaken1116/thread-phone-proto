@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package string_phone.cards.rpc;
+
+import "string_phone/cards/resources/card.proto";
+
+option go_package = "github.com/string-phone/proto/string_phone/cards/rpc";
+
+message GetTemplateCardsRequest {}
+
+message GetTemplateCardsResponse {
+  repeated string_phone.cards.resources.TemplateCard template_strings = 1;
+}
+
+
+message GetCardsRequest {}
+
+message GetCardsResponse {
+  repeated string_phone.cards.resources.Card cards = 1;
+}
+
+
+message BuyCardRequest {
+  string name = 1;
+  int32 credit = 2;
+}
+
+message BuyCardResponse {
+  bool success = 1;
+  string message = 2;
+  string_phone.cards.resources.Card card = 3;
+}

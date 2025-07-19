@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package string_phone.cards.resources;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/string-phone/proto/string_phone/cards/resources";
+
+enum CardType {
+  CARD_TYPE_UNSPECIFIED = 0;
+  CARD_TYPE_A = 1;
+  CARD_TYPE_B = 2;
+  CARD_TYPE_C = 3;
+  CARD_TYPE_D = 4;
+  CARD_TYPE_E = 5;
+  CARD_TYPE_F = 6;
+}
+
+message TemplateCard {
+  string id = 1;
+  string name = 2;
+  int32 credit = 3;
+  CardType type = 4;
+}
+
+message Card {
+  string id = 1;
+  string name = 2;
+  int32 credit = 3;
+  google.protobuf.Timestamp created_at = 4;
+  google.protobuf.Timestamp updated_at = 5;
+  CardType type = 6;
+}

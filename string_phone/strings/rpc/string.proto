@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package string_phone.strings.rpc;
+
+import "string_phone/strings/resources/string.proto";
+
+option go_package = "github.com/string-phone/proto/string_phone/strings/rpc";
+
+message GetTemplateStringsRequest {}
+
+message GetTemplateStringsResponse {
+  repeated string_phone.strings.resources.TemplateString template_strings = 1;
+}
+
+message GetStringsRequest {}
+
+message GetStringsResponse {
+  repeated string_phone.strings.resources.String strings = 1;
+}
+
+
+message BuyStringRequest {
+  string id = 1;
+  int32 length = 2;
+}
+
+message BuyStringResponse {
+  bool success = 1;
+  string message = 2;
+  string_phone.strings.resources.String string = 3;
+}

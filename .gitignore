@@ -1,0 +1,19 @@
+# Generated files
+gen/
+*.pb.go
+*_grpc.pb.go
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporary files
+*.tmp
+*.temp

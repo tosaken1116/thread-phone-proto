@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package string_phone.strings;
+
+import "string_phone/strings/rpc/string.proto";
+
+option go_package = "github.com/string-phone/proto/string_phone/strings";
+
+service StringItemService {
+  rpc GetTemplateStrings(string_phone.strings.rpc.GetTemplateStringsRequest)
+      returns (string_phone.strings.rpc.GetTemplateStringsResponse);
+
+  rpc GetStrings(string_phone.strings.rpc.GetStringsRequest)
+      returns (string_phone.strings.rpc.GetStringsResponse);
+
+  rpc BuyString(string_phone.strings.rpc.BuyStringRequest)
+      returns (string_phone.strings.rpc.BuyStringResponse);
+
+}

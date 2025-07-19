@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package string_phone.strings.resources;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/string-phone/proto/string_phone/strings/resources";
+
+enum StringType {
+  STRING_TYPE_UNSPECIFIED = 0;
+  STRING_TYPE_A = 1;
+  STRING_TYPE_B = 2;
+  STRING_TYPE_C = 3;
+  STRING_TYPE_D = 4;
+  STRING_TYPE_E = 5;
+  STRING_TYPE_F = 6;
+}
+
+message TemplateString {
+  string id = 1;
+  string name = 2;
+  int32 length = 3;
+  int32 default_durability = 4;
+  StringType type = 5;
+}
+
+message String {
+  string id = 1;
+  string name = 2;
+  int32 length = 3;
+  int32 durability = 4;
+  google.protobuf.Timestamp created_at = 5;
+  google.protobuf.Timestamp updated_at = 6;
+  StringType type = 7;
+}

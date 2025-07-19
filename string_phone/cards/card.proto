@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package string_phone.cards;
+
+import "string_phone/cards/rpc/card.proto";
+
+option go_package = "github.com/string-phone/proto/string_phone/cards";
+
+service StringItemService {
+  rpc GetTemplateCards(string_phone.cards.rpc.GetTemplateCardsRequest)
+      returns (string_phone.cards.rpc.GetTemplateCardsResponse);
+
+  rpc GetCards(string_phone.cards.rpc.GetCardsRequest)
+      returns (string_phone.cards.rpc.GetCardsResponse);
+
+
+  rpc BuyCard(string_phone.cards.rpc.BuyCardRequest)
+      returns (string_phone.cards.rpc.BuyCardResponse);
+}
