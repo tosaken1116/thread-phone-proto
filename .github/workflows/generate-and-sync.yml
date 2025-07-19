@@ -34,7 +34,7 @@ jobs:
       - name: Setup tools
         run: |
           task setup-tools
-          
+
       - name: Debug environment
         run: |
           echo "=== Current directory ==="
@@ -44,27 +44,14 @@ jobs:
           ls -la buf*.yaml buf*.yml 2>/dev/null || echo "No buf config files found"
           echo "=== Checking proto files ==="
           find . -name "*.proto" | head -5
-          
+
       - name: Generate protobuf files
         run: |
-          echo "=== Running buf generate ==="
-          buf generate
+          echo "=== Running buf generate (original method) ==="
+          task generate
           echo "=== Checking generation results ==="
           ls -la gen/ 2>/dev/null || echo "gen/ directory not found"
           find . -name "*.ts" -type f | head -10 || echo "No TS files found"
-          
-      - name: Create gen directory if missing
-        run: |
-          if [ ! -d "gen/ts/string_phone" ]; then
-            echo "gen/ts/string_phone not found, attempting manual generation"
-            mkdir -p gen/ts
-            # Try generating from string_phone directory
-            cd string_phone
-            buf generate --template ../buf.gen.yaml
-            cd ..
-            echo "=== After manual generation ==="
-            find . -name "*.ts" -type f | head -10 || echo "Still no TS files"
-          fi
 
       - name: Checkout target repository
         uses: actions/checkout@v4
@@ -75,29 +62,20 @@ jobs:
 
       - name: Copy generated files
         run: |
-          echo "=== Final verification of generated files ==="
-          find . -name "*.ts" -type f | grep -v thread-phone | head -10 || echo "No TS files found"
-          
           # Remove existing generated files
           rm -rf thread-phone/src/generated
           mkdir -p thread-phone/src/generated
-          
+
           # Copy TypeScript files
           if [ -d "gen/ts/string_phone" ]; then
             echo "Copying from gen/ts/string_phone/"
             cp -r gen/ts/string_phone/* thread-phone/src/generated/
-          elif [ -d "gen/ts" ] && [ "$(ls -A gen/ts)" ]; then
-            echo "Copying from gen/ts/"
-            cp -r gen/ts/* thread-phone/src/generated/
           else
             echo "ERROR: No generated TypeScript files found"
             echo "Available files:"
             find . -name "*.ts" -type f | head -10
             exit 1
           fi
-          
-          echo "=== Copy verification ==="
-          ls -la thread-phone/src/generated/
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5

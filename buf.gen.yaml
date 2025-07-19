@@ -2,26 +2,26 @@ version: v1
 plugins:
   # Go用のprotobuf生成
   - plugin: buf.build/protocolbuffers/go
-    out: ../gen/go
+    out: gen/go
     opt:
       - paths=source_relative
 
   # Go用のConnect RPCコード生成
   - plugin: buf.build/connectrpc/go
-    out: ../gen/go
+    out: gen/go
     opt:
       - paths=source_relative
 
   # TypeScript用のprotobuf生成（protobuf-es）
   - plugin: buf.build/bufbuild/es
-    out: ../gen/ts
+    out: gen/ts
     opt:
       - target=ts
       - import_extension=none
 
   # TypeScript用のConnect RPCコード生成
   - plugin: buf.build/connectrpc/es
-    out: ../gen/ts
+    out: gen/ts
     opt:
       - target=ts
       - import_extension=none
