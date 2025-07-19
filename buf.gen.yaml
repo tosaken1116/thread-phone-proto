@@ -25,3 +25,8 @@ plugins:
     opt:
       - target=ts
       - import_extension=none
+
+  # カスタムConnect RPCクライアント生成
+  - plugin: connectrpc-client
+    out: gen/ts
+    path: ./tools/protoc-gen-connectrpc-client/protoc-gen-connectrpc-client
