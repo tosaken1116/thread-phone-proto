@@ -53,34 +53,52 @@ jobs:
           ls -la gen/ 2>/dev/null || echo "gen/ directory not found"
           find . -name "*.ts" -type f | head -10 || echo "No TS files found"
 
-      - name: Checkout target repository
+      - name: Checkout target frontend repository
         uses: actions/checkout@v4
         with:
           repository: tosaken1116/thread-phone
           token: ${{ secrets.PAT_TOKEN }}
-          path: thread-phone
+          path: thread-phone-fe
+      - name: Checkout target backend repository
+        uses: actions/checkout@v4
+        with:
+          repository: K-Kizuku/ito-denwa
+          token: ${{ secrets.PAT_TOKEN }}
+          path: thread-phone-be
 
       - name: Copy generated files
         run: |
           # Remove existing generated files
-          rm -rf thread-phone/src/generated
-          mkdir -p thread-phone/src/generated
+          rm -rf thread-phone-fe/src/generated
+          mkdir -p thread-phone-fe/src/generated
+          rm -rf thread-phone-be/internal/presentation/connect/generated
+          mkdir -p thread-phone-be/internal/presentation/connect/generated
 
           # Copy TypeScript files
           if [ -d "gen/ts/string_phone" ]; then
             echo "Copying from gen/ts/string_phone/"
-            cp -r gen/ts/string_phone/* thread-phone/src/generated/
+            cp -r gen/ts/string_phone/* thread-phone-fe/src/generated/
           else
             echo "ERROR: No generated TypeScript files found"
             echo "Available files:"
             find . -name "*.ts" -type f | head -10
             exit 1
           fi
+          # Copy Go files
+          if [ -d "gen/go/string_phone" ]; then
+            echo "Copying from gen/go/string_phone/"
+            cp -r gen/go/string_phone/* thread-phone-be/internal/presentation/connect/generated/
+          else
+            echo "ERROR: No generated Go files found"
+            echo "Available files:"
+            find . -name "*.go" -type f | head -10
+            exit 1
+          fi
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
-          path: thread-phone
+          path: thread-phone-fe
           token: ${{ secrets.PAT_TOKEN }}
           commit-message: "feat: update generated protobuf files from string-phone-proto"
           title: "Update generated protobuf files"
@@ -90,6 +108,28 @@ jobs:
 
             ## 変更内容
             - `src/generated/` 配下のTypeScriptファイルを更新
+
+            ## 関連コミット
+            - Source commit: ${{ github.sha }}
+            - Repository: ${{ github.repository }}
+
+            🤖 この PR は自動生成されました
+          branch: update-protobuf-${{ github.run_number }}
+          delete-branch: true
+
+      - name: Create Pull Request for backend
+        uses: peter-evans/create-pull-request@v5
+        with:
+          path: thread-phone-be
+          token: ${{ secrets.PAT_TOKEN }}
+          commit-message: "feat: update generated protobuf files from string-phone-proto"
+          title: "Update generated protobuf files"
+          body: |
+            ## 概要
+            string-phone-protoリポジトリで生成されたProtocol Buffersファイルを自動同期しました。
+
+            ## 変更内容
+            - `gen/go/` 配下のGoファイルを更新
 
             ## 関連コミット
             - Source commit: ${{ github.sha }}
