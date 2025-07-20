@@ -27,3 +27,9 @@ message SignInResponse {
   string accessToken = 1;
   string_phone.user.resources.User me = 2;
 }
+
+message GetMeRequest {}
+
+message GetMeResponse {
+  string_phone.user.resources.User me = 1;
+}
