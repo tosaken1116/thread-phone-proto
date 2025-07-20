@@ -13,5 +13,5 @@ service UserService {
   rpc SignIn(string_phone.user.rpc.SignInRequest)
       returns (string_phone.user.rpc.SignInResponse);
   rpc GetMe(string_phone.user.rpc.GetMeRequest)
-      returns (string_phone.user.rpc.GetMeResponse)
+      returns (string_phone.user.rpc.GetMeResponse);
 }
