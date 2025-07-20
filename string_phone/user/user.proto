@@ -10,4 +10,6 @@ option go_package = "github.com/string-phone/proto/string_phone/user";
 service UserService {
   rpc SignUp(string_phone.user.rpc.SignUpRequest)
       returns (string_phone.user.rpc.SignUpResponse);
+  rpc SignIn(string_phone.user.rpc.SignInRequest)
+      returns (string_phone.user.rpc.SignInResponse);
 }

@@ -14,5 +14,15 @@ message SignUpRequest {
 }
 
 message SignUpResponse {
-  string_phone.user.resources.User user = 1;
+  string message = 1;
+}
+
+message SignInRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message SignInResponse { 
+  string accessToken = 1;
+  string_phone.user.resources.User me = 2;
 }
