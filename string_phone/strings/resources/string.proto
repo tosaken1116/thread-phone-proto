@@ -4,7 +4,7 @@ package string_phone.strings.resources;
 
 import "google/protobuf/timestamp.proto";
 
-option go_package = "github.com/string-phone/proto/string_phone/strings/resources";
+option go_package = "github.com/K-Kizuku/ito-denwa/internal/presentation/connect/generated/string_phone/strings/resources";
 
 enum StringType {
   STRING_TYPE_UNSPECIFIED = 0;

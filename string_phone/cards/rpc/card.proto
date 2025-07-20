@@ -4,7 +4,7 @@ package string_phone.cards.rpc;
 
 import "string_phone/cards/resources/card.proto";
 
-option go_package = "github.com/string-phone/proto/string_phone/cards/rpc";
+option go_package = "github.com/K-Kizuku/ito-denwa/internal/presentation/connect/generated/string_phone/cards/rpc";
 
 message GetTemplateCardsRequest {}
 

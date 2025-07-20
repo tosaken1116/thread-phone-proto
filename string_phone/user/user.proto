@@ -5,7 +5,7 @@ package string_phone.user;
 import "google/protobuf/empty.proto";
 import "string_phone/user/rpc/user.proto";
 
-option go_package = "github.com/string-phone/proto/string_phone/user";
+option go_package = "github.com/K-Kizuku/ito-denwa/internal/presentation/connect/generated/string_phone/user";
 
 service UserService {
   rpc SignUp(string_phone.user.rpc.SignUpRequest)

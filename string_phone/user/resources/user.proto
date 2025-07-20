@@ -4,7 +4,7 @@ package string_phone.user.resources;
 
 import "google/protobuf/timestamp.proto";
 
-option go_package = "github.com/string-phone/proto/string_phone/user/resources";
+option go_package = "github.com/K-Kizuku/ito-denwa/internal/presentation/connect/generated/string_phone/user/resources";
 
 message User {
   string id = 1;

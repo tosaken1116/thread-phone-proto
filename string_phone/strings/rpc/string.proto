@@ -4,7 +4,7 @@ package string_phone.strings.rpc;
 
 import "string_phone/strings/resources/string.proto";
 
-option go_package = "github.com/string-phone/proto/string_phone/strings/rpc";
+option go_package = "github.com/K-Kizuku/ito-denwa/internal/presentation/connect/generated/string_phone/strings/rpc";
 
 message GetTemplateStringsRequest {}
 
